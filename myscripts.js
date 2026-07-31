@@ -8,9 +8,9 @@
 
 function ctac() 
 {
-    MYAT = '\u0040';
+    MYAT = '@';
     MYNEXT1 = 'i';
-    MYPD='\u002E';
+    MYPD='.';
     MYNEXT2='c';
     zz= 'mailto:' + String.fromCharCode(parseInt(0x49, 16))+'f'+'a'+'l'+'a'+'n'+'o'+'n'+ MYAT +'g'+'m'+'a'+ MYNEXT1+'l'+ MYPD + MYNEXT2 +'o'+'m';
     window.location = zz;
