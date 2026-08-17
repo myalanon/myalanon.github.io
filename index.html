@@ -10,7 +10,15 @@
 
 <link rel="stylesheet" href="./mystyle.css">
 
+<style>
 
+/* Hide element if the viewport width is 768px or less */
+@media screen and (max-width: 768px) {
+  #div1 {
+    display: none;
+  }
+}
+</style>
 
 
 </head>
@@ -39,15 +47,17 @@
 
 
 
-
+<div id="div1">
 
 <!--Preamble for HTML Fragment (Widget) frag_2-->
-<div id="frag_2" __AddCode="here" style="position:absolute;left:535px;top:192px;width:102px;height:121px;/*Add Style*/">
+<div id="frag_2" __AddCode="here" style="position:absolute;left:500px;top:192px;width:102px;height:121px;/*Add Style*/">
 	<a href="https://www.weatherforyou.com/weather/texas/austin.html">
 <img src="http://www.weatherforyou.net/fcgi-bin/hw3/hw3.cgi?config=png&forecast=hourly&alt=hwihourlyvert2&place=austin&state=tx&country=us&hwvbg=&hwvtc="
 width="95" height="135" border="2" alt="Latest Austin, Texas, weather"></a>
 </div>
 <!--Postamble for HTML Fragment frag_2-->
+</div>
+
 
 
 
