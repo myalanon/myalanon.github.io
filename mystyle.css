@@ -68,7 +68,7 @@ h1, h2 {
 
 
 
-@media screen and (max-width: 768px) {
+@media screen  {
   .hide-on-mobile {
     display: none !important;
   }
