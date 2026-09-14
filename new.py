@@ -33,7 +33,13 @@ def getzip(address):
          return ("99999")
 
 
-
+def isnewrecord(the_line):
+    if ( clean_line.endswith("AFG")  or clean_line.endswith("GFA") or \
+       ( "Alateen" in the_line  and (len(clean_line) > 8) ) ):
+        return True
+    else:
+        return False
+    
 
 
 
@@ -110,6 +116,7 @@ areas = {
     "78759": "N",
     "78758": "N",
     "78757": "C",
+    "78756": "C",      # 78756 incorrectly specified for northland Alateen zip
     "78752": "C",
     "78750": "NW",
     "78749": "S",
@@ -178,14 +185,16 @@ with open("mdatanew.txt", "r") as file:
 
 
     for line in file:
-
+    
+       
         # remove the trailing newline character from each line
         clean_line = line.rstrip("\n")
         #clean_line = clean_line[:55]    # chop off line
         
-        # Line ending in AFG or GFA means new group
-        if ( clean_line.endswith("AFG")  or clean_line.endswith("GFA") ):
-             i = 0     
+        # Line ending in AFG or GFA means new group, or Alateen 
+        if isnewrecord(clean_line):
+
+             i = 0  
              women=""
              zoom=""
              chair=""
@@ -198,6 +207,11 @@ with open("mdatanew.txt", "r") as file:
        
         i = i + 1     # i is the line number within that AFG's record
         # look at the lines after AfG was found up until WSO is found
+        
+        #print ("processing line number " + str(i))
+        #print (line)
+        #print
+
 
        
         if ( clean_line != ""):
@@ -251,11 +265,12 @@ with open("mdatanew.txt", "r") as file:
                   # "Thursday 6:00 PM"  split into DAY and TIME 
                   splitstuff = clean_line.split()
                   DAY=splitstuff[0]
-                  if (splitstuff[2] == "PM"):
-                      TIME=splitstuff[1]   # OMIT "PM" as most times are PM
-                  else:    
-                      #TIME=splitstuff[1] + splitstuff[2]  # keep "AM"
-                      TIME=splitstuff[1] + "am"
+                  if (len(splitstuff) > 1 ): 
+                      if (splitstuff[2] == "PM"):
+                          TIME=splitstuff[1]   # OMIT "PM" as most times are PM
+                      else:    
+                          #TIME=splitstuff[1] + splitstuff[2]  # keep "AM"
+                          TIME=splitstuff[1] + "am"
                      
               
               # Location name (e.g., "Clifford St Church") is usually line 5 and
@@ -299,7 +314,11 @@ with open("mdatanew.txt", "r") as file:
                        
                   if ("ESPA" in Allcaps and csvline != ""):
                        span=" E"
-                       #new="\n Spanish Language."                      
+                       #new="\n Spanish Language."   
+                       
+                  if ("ALATEEN" in Allcaps  and csvline != ""):
+                       women=" At"
+                       
                        
                   #if ("CHAIR" in Allcaps and csvline != ""):
                   #    #chair="\n We meet under the tree. Bring a chair." 
@@ -383,8 +402,8 @@ with open("mdatanew.txt", "r") as file:
             
    
             
-        # get the name of the AFG group 
-        if ( clean_line.endswith("AFG")  or clean_line.endswith("GFA") ):
+        # get the name of the AFG or Alateen group 
+        if isnewrecord(clean_line):
             #print (clean_line)
             csvline = clean_line
             num_groups = num_groups +1
@@ -515,97 +534,3 @@ print ("\n,Shows meetings 25 miles of central Austin 78705.")
 #print ("length =  " + str(zz) )
 
 
-###########################################
-#  obtaining data:
-#    1. go to the al-anon meetings page
-#        https://al-anon.org/al-anon-meetings/
-#       Click on the blue bubble "Find an Al-Anon meeting,
-#    2. Next, elect both of these choices
-#            al-anon   al-ateen
-#          and lso both of these
-#            english   espanol
-#       select all days  (sun, mon, tu.... thru saturday)
-#       select all the participans
-#
-#    2. capture the screen output with  ctrl-A
-#    3. Open a word processor (such asd notepad on Windows)
-#       and paste (ctrl-V) the captured output.
-#       Save the result as file  mdatanew.txt
-#
-#  running the program that converts mdata.txt to spreadsheet csv format
-#    1.  run this command on a cmd or terminal window:
-#           python one.py >new.csv
-#        This will create "comma separated values" text file
-#        which can be read by s spreadsheet program
-#
-#  spreadsheet instructions (libre office calc) 
-#   The spreadsheet program is used to format and print the csv file
-#   created in the previous step,
-#   Open libre office calc and open file new.csv
-#   DO the following steps 
-#  
-#  1. sort the Austin groups:
-#      select ROWS 2 thru 30 or so (stop at where the 
-#      out of Austin meetings begin.  Do not include
-#      the header line AL_ANON GROUPS OUTSIDE OF AUSTIN
-#     Select Data -> Sort 
-#         sort key 1:  Column A
-#         sort key 2:  Column B
-#     this will rearrange the rows so that they are sorted
-#     by the AREA column.
-#     
-#      
-#  2. Sort the Outisde-of-austin groups in a similar
-#     manner.   Typically ROWS 32-55.   Do not
-#     select the header line
-#       AL_ANON GROUPS OUTSIDE OF AUSTIN
-#
-#  3. at the title line 
-#        AL_ANON GROUPS OUTSIDE OF AUSTIN
-#      Sheet -> insert break   row break
-#  4. Hilight the whole spreadsheed.  Bold all text
-#       with  Format -> Text  -> Bold
-#  5. on Hilltoppers AFG Saturday  swap the times so the 9:00 am
-#     shows above the 10:30am Wo line.  (ctrl-enter makes
-#     a new line in a cell)
-#
-#  The next few steps create the document title and footers.
-#
-#  6. select  Format -> Page style
-#    a.  Page tab  set portrait  margins L .20m   R  .20   keep .79 for top and bottom
-#    b.  Header tab, then click the Edit box.
-#        In center area regular 20pt  ( Autofit height is set but height = .2 )
-#        type
-#       Greater Austin Al-Anon Meeting List  (June 2026)
-#        Now highlight this text and choose Custom  select the first box,
-#        then choose 20 pt
-#    c. Footer (first page)  Left area  12 pt but bold Wo  Mo G  Nc and Z 
-#      Wo = Women only,  Mo = Men only, G = LGBT welcoming, E = Espanol, Nc = Newcomers 
-#      Z = zoom. See the Al-Anon online schedule for zoom meeting details.
-#     
-#      AREA: C=central Austin, N=North, S=South, etc. (based on zip code). 
-#
-#    d. footer (rest) 14 pt  bold the web pages
-#      A printable file (PDF) of this list is available on https://myalanon.github.io
-#
-#      This is not an official publication of Al-anon or any of its groups.  Some details
-#      have been omitted for brevity.  For complete
-#      meeting information see the Al-Anon website https://al-anon.org/al-anon-meetings
-#     
-#    e.  Sheet tab:  under print  select Grid
-#   Click OK.
-#   You are now done with sheet setup.   Time to print!
-#
-#  7.  save your work with File -> save or click the diskette image at the top.
-#  8.  Under File -> print preview   adjust the slider to maximize
-#
-#  9.  Print -  make sure two sided printing is selected  (flip on long side)
-#
-
-
-
-            
-            
-
-                     
-                     
