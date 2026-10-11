@@ -43,44 +43,109 @@ Before you start
              Accomodations  or  Participant
         Lastly, choose the location:
           78705 and search radius: 25 miles.
-#       
-#    2. capture the screen output with  ctrl-A
-#    3. Open a word processor (such as notepad on Windows)
-#       and paste (ctrl-V) the captured output.
-#       Save the result as file  mdatanew.txt
+       
+#    3. Select the screen output with  ctrl-A  then
+         ctrl-C to copy it.
+#    4. Open a word processor (such as notepad on Windows).
+#       Tnen paste (ctrl-V) the captured output.
+#       Save the result as file  
+
+           mdatanew.txt
+
 #       (the file should be about 2000 lines long).
+
 
 #  Converts mdata.txt to spreadsheet csv format
 #    1.  be sure you are in the directory to where new.py and
          mdatanew.txt is.  Then run this command
-#           python new.py >new.csv
-         (you may need to open a  command or terminal window first).
+         
+            python new.py >new.csv
 
-#        This will create "comma separated values" text file
+         (you may need to open a  command or terminal window to
+         run this command).
+
+#        This will create "comma separated values" text file named
+            new.csv 
 #        which can be read by a spreadsheet program.
          This file is typically about 190 lines long.
     
     
-There are two choices to make the printable shcedule 
+To make the final printable shcedule, there are two choices 
 at this point.  You can either use the template spreadsheet master.ods
-with the new .csv data (easiest), or you can create a
+with the new .csv data (easiest), or you can create an entirely
 new spreadsheet from scratch.   Using master.ods may be easiest 
-as some of the spreadsheet formatting is already in place.
-For example, legend information and page breaks.
+as some of the spreadsheet formatting and footer information is 
+already in place.
+
 
 USING THE MASTER.ODS
-  1. copy master.ods  to aus-alanon-sched.ods
-     That is,   
-     All changes will be made to this new fileaus-alanon-sched.ods.
      
-  2. Start Libre Office and open the Calc (spreadsheet) program
-      File -> open  -> aus-alanon-sched.ods
-  3.  Do another file -> open and select new.csv 
+  1. Start Libre Office and open the Calc (spreadsheet) program
+      File -> open  -> new.csv
   
-  4.  On new csv, sort the Austin groups:
-      
-     
+  2.  On new csv, sort the Austin groups.  
 
+        select ROWS 2 thru 30 or so (stop at where the 
+        out of Austin meetings begin.  Do not include
+        the header line AL_ANON GROUPS OUTSIDE OF AUSTIN
+        Select Data -> Sort 
+           sort key 1:  Column A
+           sort key 2:  Column B
+        this will rearrange the rows so that they are sorted
+        by the AREA column.
+        
+  4.  Sort the out of Austin groups (everything after the line
+        AL_ANON GROUPS OUTSIDE OF AUSTIN
+        
+  5.  At the line  AL_ANON GROUPS OUTSIDE OF AUSTIN
+      insert a page break with
+        Sheet -> insert page break 
+        
+  6.  In Format -> page style
+        Under sheet tab, select  Grid
+        
+  7    Under page tab,  set portrait  margins L .20  R .20
+   
+  8.   We are done with Page Style.  Now select print preview
+        and adjust the size slicer to maximize row width.
+        
+   Now you can print and save this as  
+        new.ods
+   Compare it to the old previous schedue
+   to verify changes... check for new groups, deleted groups,
+   or any glitches in this new data.
+      
+   If all is ok   
+    1. copy master.ods  to aus-alanon-sched.ods
+          
+     All changes will now be made to this new file
+      aus-alanon-sched.ods.
+      
+    2. Delete the austin afg data from  aus-alanon-sched.ods
+      Do not use the delete rows function.  Instead
+      highlight the rows and hit the delete key,
+      This leaves approximately 30 blank rows,
+      
+      Now copy the rows from new.ods into  aus-alanon-sched.ods
+      
+    3. Repeat the same for the out of austin group data
+    
+    4. Under Format -> Page Style 
+        select the   Header tab, then  select the EDIT button
+       Update the header to specify the current year and month
+       
+    5. Update the "list created on" date at the bottom
+    
+    6. save, then print the spreadsheet.
+    
+    If all looks OK then export to PDF with
+       File -> Export as pdf    
+       You do not need to select any options
+       
+    7. LASTLY, Dont forget to update the master ods
+       with the latest schedule
+           copy  aus-alanon-sched.ods   master.ods
+      
 
 
 #  TO CREATE A SPREADSHEET FROM SCRATCH:
@@ -150,8 +215,10 @@ USING THE MASTER.ODS
 
 
 HINTS
-   if a zipcode is listed as 99999  check the zip code listed in the .txt 
-   Then see if the zip code is in the 
+   if a zipcode 99999 is for Zoom only meetings.
+   
+   If an area is listed as ?? then add the zip code of the meeting to 
+   the area tables
             
             
 
